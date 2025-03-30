@@ -3,7 +3,7 @@ import Home from './src/screens/Home'
 
 const App = () => {
   return (
-    <View>
+    <View style={styles.container}>
       <Home/>
     </View>
   )
@@ -11,4 +11,8 @@ const App = () => {
 
 export default App
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1, // Ensures the app takes full screen
+  },
+})
