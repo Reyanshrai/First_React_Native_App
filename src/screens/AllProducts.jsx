@@ -1,24 +1,51 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
-const AllProducts = () => {
+const AllProducts = ({ data }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>AllProducts</Text>
-    </View>
-  )
-}
+    <View>
+      <View style={styles.headingContainer}>
+        <Text style={styles.headingText}>Items</Text>
+        <Text style={styles.headingText}>Quantity</Text>
+      </View>
 
-export default AllProducts
+      <FlatList 
+        data={data}
+        keyExtractor={(item) => item.id.toString()} // Ensures the key is a string
+        renderItem={({ item }) => (
+          <View style={[styles.itemContainer,{backgroundColor:item.stock > 100 ? "#D7F6BF":"#FFCCCC"}]}>
+            <Text style={styles.itemText}>{item.name}</Text>
+            <Text style={styles.itemText}>{item.stock}</Text>
+          </View>
+        )}
+        contentContainerStyle={{gap:10}}
+      />
+    </View>
+  );
+};
+
+export default AllProducts;
 
 const styles = StyleSheet.create({
-    container:{
-        width:'100%',
-        height:'100%',
-        backgroundColor:'grey'
-    },
-    text:{
-        color:'red',
-        fontWeight:'bold',
-        fontSize:30,
-    }
-})
+  headingContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+  },
+  headingText: {
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    backgroundColor: 'white',
+    borderRadius:10,
+  },
+  itemText: {
+    fontWeight: '500',
+    fontSize: 20,
+  },
+});
